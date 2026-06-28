@@ -1,0 +1,41 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+    function signedIn() {
+      return request.auth != null;
+    }
+
+    function ownsExistingDocument() {
+      return signedIn() && resource.data.userId == request.auth.uid;
+    }
+
+    function createsOwnDocument() {
+      return signedIn() && request.resource.data.userId == request.auth.uid;
+    }
+
+    match /users/{userId} {
+      allow read, create, update, delete: if signedIn() && request.auth.uid == userId;
+    }
+
+    match /tasks/{taskId} {
+      allow create: if createsOwnDocument();
+      allow read, update, delete: if ownsExistingDocument();
+    }
+
+    match /goals/{goalId} {
+      allow create: if createsOwnDocument();
+      allow read, update, delete: if ownsExistingDocument();
+    }
+
+    match /habits/{habitId} {
+      allow create: if createsOwnDocument();
+      allow read, update, delete: if ownsExistingDocument();
+    }
+
+    match /aiPlans/{planId} {
+      allow create: if createsOwnDocument();
+      allow read, update, delete: if ownsExistingDocument();
+    }
+  }
+}
