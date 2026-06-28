@@ -4,6 +4,10 @@ LifePilot AI is an AI-powered deadline emergency and productivity companion for 
 
 It uses Google AI Studio and the Gemini API as the core AI tool to prioritize tasks, predict deadline risk, create emergency plans, break work into steps, and guide users toward finishing on time.
 
+## Live Demo
+
+https://lifepilot-ai-7d185.web.app
+
 ## Core Stack
 
 - Vite + React
